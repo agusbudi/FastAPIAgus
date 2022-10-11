@@ -40,7 +40,7 @@ async def predict(path_id: int):
      return {"message":  f"This is /predict/{path_id} endpoint, use post request to retrieve result"}
     
 @app.post("/predict")
-async def predict(requess: Req)
+async def predict(requess: Req):
     '''
     Predict the insurance cost based on user inputs
     and render the result to the html page
