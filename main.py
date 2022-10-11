@@ -50,21 +50,21 @@ async def predict(requess: Req):
     smoker = requess.smoker
 #    age, sex, smoker = [x for x in request.form.values()]
 
-    data = []
+#     data = []
 
-    data.append(int(age))
-    if sex == 'Laki-laki':
-        data.extend([0, 1])
-    else:
-        data.extend([1, 0])
+#     data.append(int(age))
+#     if sex == 'Laki-laki':
+#         data.extend([0, 1])
+#     else:
+#         data.extend([1, 0])
 
-    if smoker == 'Ya':
-        data.extend([0, 1])
-    else:
-        data.extend([1, 0])
+#     if smoker == 'Ya':
+#         data.extend([0, 1])
+#     else:
+#         data.extend([1, 0])
     
-    prediction = model.predict([data])
-    output = round(prediction[0], 2)
+#     prediction = model.predict([data])
+#     output = round(prediction[0], 2)
     
-   return {"message": f"You wrote: '{output}'"}
+   return {"message": f"You wrote: '{smoker}'"}
 #     #return render_template('index.html', insurance_cost=output, age=age, sex=sex, smoker=smoker)
