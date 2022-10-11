@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-#import pickle
+import pickle
 
 app = FastAPI()
 
 
-# model_file = open('model.pkl', 'rb')
-# model = pickle.load(model_file, encoding='bytes')
+model_file = open('model.pkl', 'rb')
+model = pickle.load(model_file, encoding='bytes')
 
 class Msg(BaseModel):
     msg: str
