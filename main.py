@@ -48,6 +48,7 @@ async def predict(requess: Req):
     age = requess.age
     sex = requess.sex
     smoker = requess.smoker
+    return {"message": f"You wrote {smoker}"}    
 #    age, sex, smoker = [x for x in request.form.values()]
 
 #     data = []
@@ -66,5 +67,4 @@ async def predict(requess: Req):
 #     prediction = model.predict([data])
 #     output = round(prediction[0], 2)
     
-   return {"message": f"You wrote {smoker}"}
 #     #return render_template('index.html', insurance_cost=output, age=age, sex=sex, smoker=smoker)
