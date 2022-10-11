@@ -30,7 +30,7 @@ async def demo_post(inp: Msg):
 async def demo_get_path_id(path_id: int):
     return {"message": f"This is /path/{path_id} endpoint, use post request to retrieve result"}
 
-@app.post("/predict/{path_id}")
+@app.get("/predict/{path_id}")
 async def predict(path_id: int):
      return {"message":  f"This is /predict/{path_id} endpoint, use post request to retrieve result"}
     
