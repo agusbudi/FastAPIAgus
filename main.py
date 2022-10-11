@@ -51,12 +51,12 @@ async def predict(requess: Req):
     data = []
 
     data.append(int(age))
-    if sex == 'Laki-laki':
+    if sex == 'Male':
         data.extend([0, 1])
     else:
         data.extend([1, 0])
 
-    if smoker == 'Ya':
+    if smoker == 'Yes':
         data.extend([0, 1])
     else:
         data.extend([1, 0])
