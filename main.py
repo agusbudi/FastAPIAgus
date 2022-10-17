@@ -56,16 +56,16 @@ async def predict(requess: Req):
     region: requess.region
     data = []
 
-    data.append(int(age))
-    data.append(int(sex))
-    data.append(float(bmi))
-    data.append(int(children))
-    data.append(int(smoker))
-    data.append(int(region))
+#     data.append(int(age))
+#     data.append(int(sex))
+#     data.append(float(bmi))
+#     data.append(int(children))
+#     data.append(int(smoker))
+#     data.append(int(region))
     
 #     prediction = model.predict([data])
 #     output = round(prediction[0], 2)
-    output= data
+    output= sex
     return {"message": f"Your annual insurance is: {output} USD"}        
     
 #     #return render_template('index.html', insurance_cost=output, age=age, sex=sex, smoker=smoker)
