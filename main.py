@@ -58,9 +58,9 @@ async def predict(requess: Req):
 
     data.append(int(age))
     data.extend([int(sex)])
-    data.extend([float(bmi)])
-    data.extend([int(children)])
-    data.extend([int(smoker)])
+#     data.extend([float(bmi)])
+#     data.extend([int(children)])
+#     data.extend([int(smoker)])
     data.extend([int(region)])
     
 #     prediction = model.predict([data])
