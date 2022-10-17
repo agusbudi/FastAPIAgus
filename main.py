@@ -57,7 +57,7 @@ async def predict(requess: Req):
     region: requess.region
     data = []
 
-#    data.append(int(age))
+    data.append(int(age))
 #     data.extend([int(sex)])
 #     data.extend([float(bmi)])
 #     data.extend([int(children)])
