@@ -14,10 +14,10 @@ class Msg(BaseModel):
 class Req(BaseModel):
     age: int
     sex: int
-#     bmi: float
-#     children: int
-#     smoker: int
-#     region: int
+    smoker: int
+    bmi: float
+    children: int
+    region: int
 
 @app.get("/")
 async def root():
@@ -48,30 +48,32 @@ async def predict(requess: Req):
     Predict the insurance cost based on user inputs
     and render the result to the html page
     '''
-
-    age: requess.age
-    sex: requess.sex
-    bmi: requess.bmi
-    children: requess.children
-    smoker: requess.smoker
-    region: requess.region
+    age = requess.age
+    sex = requess.sex
+    smoker = requess.smoker
+    bmi = requess.bmi
+    children = requess.children
+    region = requess.region
     data = []
-    output=1
-    try:
-        data.append(int(age))
-    except Exception as e:
-        output=e
-        print(e)    
-#     data.append(int(age))
-#     data.extend([int(sex)])
-#     data.extend([float(bmi)])
-#     data.extend([int(children)])
-#     data.extend([int(smoker)])
-#     data.extend([int(region)])
+
+    data.append(int(age))
+    data.extend([int(sex)])
+    data.extend([float(bmi)])
+    data.extend([int(children)])
+    data.extend([int(smoker)])
+    data.extend([int(region)])  
+    # if sex == 'Male':
+    #     data.extend([0, 1])
+    # else:
+    #     data.extend([1, 0])
+
+    # if smoker == 'Yes':
+    #     data.extend([0, 1])
+    # else:
+    #     data.extend([1, 0])
     
-#     prediction = model.predict([data])
-#     output = round(prediction[0], 2)
-    #output= age
+    prediction = model.predict([data])
+    output = round(prediction[0], 2)
     return {"message": f"Your annual insurance is: {output} USD"}        
     
 #     #return render_template('index.html', insurance_cost=output, age=age, sex=sex, smoker=smoker)
