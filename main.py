@@ -48,6 +48,7 @@ async def predict(requess: Req):
     Predict the insurance cost based on user inputs
     and render the result to the html page
     '''
+
     age: requess.age
     sex: requess.sex
     bmi: requess.bmi
@@ -57,11 +58,11 @@ async def predict(requess: Req):
     data = []
 
     data.append(int(age))
-    data.extend([int(sex)])
+#     data.extend([int(sex)])
 #     data.extend([float(bmi)])
 #     data.extend([int(children)])
 #     data.extend([int(smoker)])
-    data.extend([int(region)])
+#     data.extend([int(region)])
     
 #     prediction = model.predict([data])
 #     output = round(prediction[0], 2)
