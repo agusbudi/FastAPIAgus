@@ -14,10 +14,10 @@ class Msg(BaseModel):
 class Req(BaseModel):
     age: int
     sex: int
-    bmi: float
-    children: int
-    smoker: int
-    region: int
+#     bmi: float
+#     children: int
+#     smoker: int
+#     region: int
 
 @app.get("/")
 async def root():
@@ -56,6 +56,12 @@ async def predict(requess: Req):
     smoker: requess.smoker
     region: requess.region
     data = []
+    output=1
+    try:
+        data.append(int(age))
+    except Exception as e:
+        output=e
+        print(e)    
 #     data.append(int(age))
 #     data.extend([int(sex)])
 #     data.extend([float(bmi)])
@@ -65,7 +71,7 @@ async def predict(requess: Req):
     
 #     prediction = model.predict([data])
 #     output = round(prediction[0], 2)
-    output= age
+    #output= age
     return {"message": f"Your annual insurance is: {output} USD"}        
     
 #     #return render_template('index.html', insurance_cost=output, age=age, sex=sex, smoker=smoker)
