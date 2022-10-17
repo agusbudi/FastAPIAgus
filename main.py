@@ -65,7 +65,7 @@ async def predict(requess: Req):
     
 #     prediction = model.predict([data])
 #     output = round(prediction[0], 2)
-    output= 1
+    output= age
     return {"message": f"Your annual insurance is: {output} USD"}        
     
 #     #return render_template('index.html', insurance_cost=output, age=age, sex=sex, smoker=smoker)
