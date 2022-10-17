@@ -5,7 +5,7 @@ import pickle
 app = FastAPI()
 
 
-model_file = open('model.pkl', 'rb')
+model_file = open('insurance_model.pkl', 'rb')
 model = pickle.load(model_file, encoding='bytes')
 
 class Msg(BaseModel):
@@ -13,8 +13,11 @@ class Msg(BaseModel):
 
 class Req(BaseModel):
     age: int
-    sex: str
-    smoker: str
+    sex: int
+    bmi: float
+    children: int
+    smoker: int
+    region: int
 
 @app.get("/")
 async def root():
@@ -45,21 +48,20 @@ async def predict(requess: Req):
     Predict the insurance cost based on user inputs
     and render the result to the html page
     '''
-    age = requess.age
-    sex = requess.sex
-    smoker = requess.smoker
+    age: requess.age
+    sex: requess.sex
+    bmi: requess.bmi
+    children: requess.children
+    smoker: requess.smoker
+    region: requess.region
     data = []
 
     data.append(int(age))
-    if sex == 'Male':
-        data.extend([0, 1])
-    else:
-        data.extend([1, 0])
-
-    if smoker == 'Yes':
-        data.extend([0, 1])
-    else:
-        data.extend([1, 0])
+    data.append(int(sex))
+    data.append(float(bmi))
+    data.append(int(children))
+    data.append(int(smoker))
+    data.append(int(region))
     
     prediction = model.predict([data])
     output = round(prediction[0], 2)
