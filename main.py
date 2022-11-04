@@ -1,6 +1,10 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pickle
+import json
 
 app = FastAPI()
 
@@ -41,6 +45,43 @@ async def demo_get_path_id(path_id: int):
 @app.get("/predict/{path_id}")
 async def predict(path_id: int):
      return {"message":  f"This is /predict/{path_id} endpoint, use post request to retrieve result"}
+
+taxonomies = [["Normal", "EBO non dysplasique", "EBO en dysplasie de bas grade", "EBO en dysplasie de haut grade", "adénocarcinome superficiel", "adénocarcinome invasif", "Dysplasie de haut grade sur muqueuse épidermoïde", "Carcinome épidermoïde superficiel", "Carcinome épidermoïde invasif"],
+              ["Normal", "Adénome", "Ampullome bénin", "ampullome dégénéré superficiel", "ampullome dégénéré invasif"],
+              ["Normal", "polype glandulokystique", "atrophie", "métaplasie intestinale", "dysplasie de bas grade", "dysplasie de haut grade", "adénocarcinome superficiel", "adénocarcinome invasif", "pancréas aberrant", "GIST"],
+              ["Normal", "Polype hyperplasique", "Adénome festonné sessile", "adénome en dysplasie de bas grade", "adénome en dysplasie de haut grade", "adénocarcinome superficiel", "adénocarcinome invasif"]]
+
+anatomyName = ["Oesophage","Duodénum","Estomac" , "Colon rectum"]
+
+relation_taxo = [[[1,4,4,4,4,4,4,4,4],[4,1,2,4,4,4,4,4,4], [4,2,1,3,4,4,4,4,4], [4,4,3,1,3,4,4,4,4], [4,4,4,3,1,3,4,4,4], [4,4,4,4,3,1,4,4,4], [4,4,4,4,4,4,1,2,3], [4,4,4,4,4,4,2,1,4], [4,4,4,4,4,4,3,4,1]],
+                  [[1,4,4,4,4], [4,1,4,4,4], [4,4,1,3,4], [4,4,3,1,3], [4,4,4,3,1]],
+                  [[1,4,4,4,4,4,4,4,4,4], [4,1,4,4,4,4,4,4,4,4], [4,4,1,2,2,4,4,4,4,4], [4,4,2,1,2,3,4,4,4,4], [4,4,2,2,1,2,4,4,4,4], [4,4,4,3,2,1,3,4,4,4], [4,4,4,4,4,3,1,3,4,4], [4,4,4,4,4,4,3,1,4,4], [4,4,4,4,4,4,4,4,1,4], [4,4,4,4,4,4,4,4,4,1]],
+                  [[1,2,4,4,4,4,4], [2,1,2,4,4,4,4], [4,2,1,4,2,4,4], [4,4,4,1,1,4,4], [4,4,2,1,1,2,4], [4,4,4,4,2,1,3], [4,4,4,4,4,3,1]]]  
+
+feedback = ["", "Les taxonomies peuvent être confondus", "Erreur de conformité (les taxonomies ont une texture et une forme visuelle proche)", "Erreur grave (l'erreur entre deux taxonomies peut causer un risque pour le patient)", "Inacceptable"]
+
+@app.get("/taxonomy/{anatomy}&{prediction}&{anapath}")
+async def giveFeedback(anatomy: str, prediction: str, anapath: str):
+    #Find index
+    anatomy_idx = anatomyName.index(anatomy)
+    prediction_idx = taxonomies[anatomy_idx].index(prediction)
+    anapath_idx = taxonomies[anatomy_idx].index(anapath)
+
+    #Result
+    result = feedback[relation_taxo[anatomy_idx][prediction_idx][anapath_idx]]
+    jsonStr = json.dumps(result, ensure_ascii=False)
+    return {jsonStr}    
+
+@app.get("/taxonomy/{anatomy}")
+async def taxonomyList(anatomy: str):
+    jsonStr = json.dumps(taxonomies[anatomyName.index(anatomy)], ensure_ascii=False)
+    return {jsonStr}
+
+@app.get("/anatomyList")
+async def anatomyList():
+    jsonStr = json.dumps(anatomyName, ensure_ascii=False)
+    return {jsonStr}
+        
     
 @app.post("/predict")
 async def predict(requess: Req):
